@@ -1,5 +1,6 @@
 package com.veselov.alex.springbootin25steps.controller;
 
+import com.veselov.alex.springbootin25steps.model.Todo;
 import com.veselov.alex.springbootin25steps.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,7 @@ import java.util.Date;
 
 @Controller
 @SessionAttributes({"name"})
-public class Todo {
+public class TodoController {
 
     @Autowired
     private TodoService service;
@@ -26,6 +27,7 @@ public class Todo {
 
     @GetMapping("/add-todo")
     public String showTodoPage(ModelMap model) {
+        model.addAttribute("todo", new Todo(0, (String) model.getAttribute("name"), "some-desc", new Date(), false));
         return "todo-form";
     }
 
@@ -36,8 +38,8 @@ public class Todo {
     }
 
     @PostMapping("/add-todo")
-    public String addTodo(ModelMap model, @RequestParam String desc) {
-        this.service.addTodo((String) model.getAttribute("name"), desc, new Date(), false);
+    public String addTodo(ModelMap model, Todo todo) {
+        this.service.addTodo((String) model.getAttribute("name"), todo.getDesc(), new Date(), false);
         return "redirect:/list-todos";
     }
 }

@@ -20,6 +20,7 @@
             <form:label path="desc">Description
                 <form:input path="desc" type="text" class="form-control" required="required"/>
             </form:label>
+            <form:errors path="desc" cssClass="text-warning"></form:errors>
         </fieldset>
         <button type="submit" class="btn btn-success">Add</button>
     </form:form>

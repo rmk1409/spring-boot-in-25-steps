@@ -1,10 +1,12 @@
 package com.veselov.alex.springbootin25steps.model;
 
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 public class Todo {
     private int id;
     private String user;
+    @Size(min = 6, message = "At least 6 characters")
     private String desc;
     private Date targetDate;
     private boolean isDone;

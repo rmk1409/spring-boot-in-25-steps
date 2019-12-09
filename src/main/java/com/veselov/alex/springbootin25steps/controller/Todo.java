@@ -29,6 +29,12 @@ public class Todo {
         return "todo-form";
     }
 
+    @GetMapping("/delete-todo")
+    public String deleteTodo(@RequestParam int id, ModelMap model) {
+        this.service.deleteTodo(id);
+        return "redirect:/list-todos";
+    }
+
     @PostMapping("/add-todo")
     public String addTodo(ModelMap model, @RequestParam String desc) {
         this.service.addTodo((String) model.getAttribute("name"), desc, new Date(), false);

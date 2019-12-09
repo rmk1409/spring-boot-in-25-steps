@@ -3,15 +3,15 @@ package com.veselov.alex.springbootin25steps.controller;
 import com.veselov.alex.springbootin25steps.model.Todo;
 import com.veselov.alex.springbootin25steps.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Controller
@@ -20,6 +20,13 @@ public class TodoController {
 
     @Autowired
     private TodoService service;
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(
+                dateFormat, false));
+    }
 
     @GetMapping("/list-todos")
     public String shouwTodoList(ModelMap model) {
@@ -34,8 +41,25 @@ public class TodoController {
     }
 
     @GetMapping("/delete-todo")
-    public String deleteTodo(@RequestParam int id, ModelMap model) {
+    public String deleteTodo(@RequestParam int id) {
         this.service.deleteTodo(id);
+        return "redirect:/list-todos";
+    }
+
+    @GetMapping("/update-todo")
+    public String showUpdateTodo(@RequestParam int id, ModelMap model) {
+        Todo todo = this.service.retrieveTodo(id);
+        model.put("todo", todo);
+        return "todo-form";
+    }
+
+    @PostMapping("/update-todo")
+    public String updateTodo(ModelMap model, @Valid Todo todo, BindingResult result) {
+        if (result.hasErrors()){
+            return "todo-form";
+        }
+        todo.setUser((String) model.getAttribute("name"));
+        this.service.update(todo);
         return "redirect:/list-todos";
     }
 
@@ -44,7 +68,7 @@ public class TodoController {
         if (result.hasErrors()){
             return "todo-form";
         }
-        this.service.addTodo((String) model.getAttribute("name"), todo.getDesc(), new Date(), false);
+        this.service.addTodo((String) model.getAttribute("name"), todo.getDesc(), todo.getTargetDate(), false);
         return "redirect:/list-todos";
     }
 }

@@ -1,14 +1,19 @@
 package com.veselov.alex.springbootin25steps.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 public class Hello {
-    @GetMapping("/login")
+    @GetMapping("/hello")
     @ResponseBody
-    public String hello(){
-        return "Hi, there!";
+    public String hello() {
+        return "Hi, there!!";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
     }
 }

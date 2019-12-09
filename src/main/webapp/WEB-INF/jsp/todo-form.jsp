@@ -11,9 +11,10 @@
     <title>welcome</title>
 </head>
 <body>
-Hi, ${name}!<br>
-Todos list:<br>
-${todos}<br>
-<a href="/add-todo">Add a Todo</a>
+Add Todo Page for ${name}
+<form method="post">
+    descr <input name="desc" type="text"/> <br>
+    <input type="submit"/>
+</form>
 </body>
 </html>

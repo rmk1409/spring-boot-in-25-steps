@@ -11,7 +11,7 @@
     <title>welcome</title>
 </head>
 <body>
-Hi ${name}
+Hi ${name}!<br>
 <a href="/list-todos">Todo list</a>
 </body>
 </html>

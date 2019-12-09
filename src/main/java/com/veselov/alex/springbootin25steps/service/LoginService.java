@@ -5,6 +5,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class LoginService {
     public boolean check(String name, String password){
-        return "admin".equals(name) && "pass".equals(password);
+        return "rmk".equals(name) && "pass".equals(password);
     }
 }

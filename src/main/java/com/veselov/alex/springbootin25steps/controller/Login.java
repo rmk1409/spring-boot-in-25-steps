@@ -4,13 +4,11 @@ import com.veselov.alex.springbootin25steps.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
-public class Hello {
+@SessionAttributes({"name"})
+public class Login {
 
     @Autowired
     private LoginService service;
@@ -22,7 +20,7 @@ public class Hello {
     }
 
     @GetMapping("/login")
-    public String login(ModelMap model) {
+    public String login() {
         return "login";
     }
 

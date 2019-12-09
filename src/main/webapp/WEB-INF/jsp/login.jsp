@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-Yahooooooo!!!!!!
+${name} Yahooooooo!!!!!!
 </body>
 </html>
